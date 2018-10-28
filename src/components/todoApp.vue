@@ -11,19 +11,20 @@
     </div>
     <div v-if="!loggedIn" class="row">
       <div class="float-right">
-      <button
-        id="btn-or"
-        class="btn btn-warning"
-        v-on:click="login = !login"
-      >
-        or {{ login ? "sign up" : "login" }}
-      </button>
-    </div>
+        <button
+          id="btn-or"
+          class="btn btn-warning"
+          v-on:click="login = !login"
+        >
+          or {{ login ? "sign up" : "login" }}
+        </button>
+      </div>
     </div>
     <div class="row">
       <div class="col12 text-center">
         <div class="input-group">
           <input id="new-todo" type="text" placeholder="what your plan?" v-model="newTodo">
+          <input id="new-image" type="text" placeholder="what's your img?" v-model="image">
           <button id="add-todo" class="btn" v-on:click="addToDo">Add ToDo</button>
         </div>
       </div>
@@ -65,6 +66,7 @@ export default {
       newTodo: '',
       login: true,
       loggedIn: localStorage.getItem('token')
+      image: ''
     }
   },
   methods: {
@@ -76,7 +78,7 @@ export default {
       axios
         .post(
           'https://gttodo.herokuapp.com/api/todos',
-          { todo: { text: this.newTodo } },
+          { todo: { text: this.newTodo, image: this.image } },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
