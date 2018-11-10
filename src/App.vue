@@ -49,8 +49,13 @@ export default {
   width: 100%;
 }
 
-.col5 {
+.col6 {
   width: 50%;
+  float: left;
+}
+
+.col12 {
+  width: 100%;
   float: left;
 }
 

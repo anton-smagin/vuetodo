@@ -2,8 +2,16 @@
 <div>
   <div v-if="editing" class="edit-todo list-group-item">
     <div class="input-group">
-      <input type="text" v-model="text">
-      <button id="save-todo" class="btn btn-success" v-on:click="saveToDo()">save ToDo</button>
+      <input id="edit-todo" class="col6" type="text" v-model="text">
+      <div class="btn-group float-right">
+        <button
+          v-on:click="saveToDo()"
+          class="btn btn-success"
+          id="save-todo"
+        >
+          save ToDo
+        </button>
+      </div>
     </div>
   </div>
   <div class="list-group-item" v-else>
@@ -40,3 +48,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .input-group {
+    width: 100%;
+  }
+</style>
