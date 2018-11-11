@@ -3,6 +3,7 @@
   <div v-if="editing" class="edit-todo list-group-item">
     <div class="input-group">
       <input id="edit-todo" class="col6" type="text" v-model="text">
+      <input id="new-image" type="text" placeholder="what's your img?" v-model="image">
       <div class="btn-group float-right">
         <button
           v-on:click="saveToDo()"
