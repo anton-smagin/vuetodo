@@ -1,6 +1,23 @@
 <template>
   <div>
     <div class="row">
+      <div v-if="!loggedIn" class="login float-right">
+        <login v-if="login"/>
+        <signup v-else />
+      </div>
+    </div>
+    <div v-if="!loggedIn" class="row">
+      <div class="float-right">
+      <button
+        id="btn-or"
+        class="btn btn-warning"
+        v-on:click="login = !login"
+      >
+        or {{ login ? "sign up" : "login" }}
+      </button>
+    </div>
+    </div>
+    <div class="row">
       <div class="col12 text-center">
         <div class="input-group">
           <input id="new-todo" type="text" placeholder="what your plan?" v-model="newTodo">
@@ -26,15 +43,21 @@
 
 <script>
 import todoItem from './todoItem.vue'
+import signup from './signup.vue'
+import login from './login.vue'
 
 export default {
   components: {
-    todoItem
+    todoItem: todoItem,
+    signup: signup,
+    login: login
   },
   data () {
     return {
       todos: [],
-      newTodo: ''
+      newTodo: '',
+      login: true,
+      loggedIn: localStorage.getItem('token')
     }
   },
   methods: {
@@ -52,5 +75,19 @@ export default {
 <style>
   #new-todo {
     width: 50%;
+  }
+  .login {
+    text-align: left;
+    margin-bottom: 25px;
+  }
+  .login input{
+    padding: 8px 10px;
+  }
+  .login .btn {
+    padding: 10px;
+  }
+
+  #btn-or {
+    padding: 10px;
   }
 </style>
