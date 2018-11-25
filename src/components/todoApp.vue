@@ -31,7 +31,7 @@
     <div class="row">
       <div class="col12">
         <ul  class="list-group" id="todos">
-          <li v-for="(todo, index) in todos" v-bind:key="todo + index">
+          <li v-for="(todo, index) in todos" v-bind:key="todo.id">
             <todoItem
               v-bind:todo="todo"
               :todoindex="index"

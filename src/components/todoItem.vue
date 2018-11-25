@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: ['todo', 'todoindex'],
   data () {
@@ -38,13 +40,34 @@ export default {
 },
   methods: {
     saveToDo () {
-      this.editing = false
+      let vue = this
+      axios
+        .put(
+          this.todoPath(),
+          { todo: { text: this.text } },
+          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        )
+        .then(function(response) {
+          vue.text = response.data.text
+          vue.editing = false
+        })
     },
     editToDo () {
       this.editing = true
     },
     deleteToDo () {
-      this.$emit('delete-todo', this.todoindex)
+      let vue = this
+      axios
+        .delete(
+          this.todoPath(),
+          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        )
+        .then(function() {
+          vue.$emit('delete-todo', vue.todoindex)
+        })
+    },
+    todoPath() {
+      return `https://gttodo.herokuapp.com/api/todos/${this.id}`
     }
   }
 }
