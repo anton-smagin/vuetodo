@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="row">
-      <div v-if="!loggedIn" class="login float-right">
+      <div v-if="loggedIn" class="login float-right">
+        <logout/>
+      </div>
+      <div v-else>
         <login v-if="login"/>
         <signup v-else />
       </div>
@@ -42,15 +45,19 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 import todoItem from './todoItem.vue'
 import signup from './signup.vue'
 import login from './login.vue'
+import logout from './logout.vue'
 
 export default {
   components: {
     todoItem: todoItem,
     signup: signup,
-    login: login
+    login: login,
+    logout: logout
   },
   data () {
     return {
@@ -65,9 +72,37 @@ export default {
       this.todos.splice(id, 1);
     },
     addToDo () {
-      this.todos.push(this.newTodo)
-      this.newTodo = ''
-    }
+      let vue = this
+      axios
+        .post(
+          'https://gttodo.herokuapp.com/api/todos',
+          { todo: { text: this.newTodo } },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          })
+        .then(function(response) {
+          vue.todos.push(response.data)
+          vue.newTodo = ''
+        })
+    },
+    getTodos () {
+      let vue = this
+      axios
+        .get('https://gttodo.herokuapp.com/api/todos',
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        .then(function(response) {
+          vue.todos = response.data
+        })
+    },
+  },
+  mounted () {
+    this.getTodos()
   },
 }
 </script>

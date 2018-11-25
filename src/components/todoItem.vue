@@ -32,7 +32,8 @@ export default {
   data () {
   return {
     editing: false,
-    text: this.todo
+    text: this.todo.text,
+    id: this.todo.id
   }
 },
   methods: {
