@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="row">
+<<<<<<< HEAD
       <div v-if="loggedIn" class="login float-right">
         <logout/>
       </div>
@@ -17,6 +18,16 @@
           v-on:click="login = !login"
         >
           or {{ login ? "sign up" : "login" }}
+=======
+       <div v-if="loggedIn" class="login float-right">
+        <logout/>
+        </div>
+        <div v-else class="login float-right">
+        <login v-if="login" />
+        <signup v-else />
+        <button class="btn btn-warning" v-on:click="login = !login">or
+          {{ login ? "signup" : "login" }}
+>>>>>>> add delete function, edit function, login, logout, signup
         </button>
       </div>
     </div>
@@ -55,7 +66,11 @@ import logout from './logout.vue'
 
 export default {
   components: {
+<<<<<<< HEAD
     todoItem: todoItem,
+=======
+    todoItem,
+>>>>>>> add delete function, edit function, login, logout, signup
     signup: signup,
     login: login,
     logout: logout
@@ -64,14 +79,20 @@ export default {
     return {
       todos: [],
       newTodo: '',
+<<<<<<< HEAD
       login: true,
       loggedIn: localStorage.getItem('token')
       image: ''
+=======
+      image: '',
+      login: true,
+      loggedIn: localStorage.getItem('token') !== null,
+>>>>>>> add delete function, edit function, login, logout, signup
     }
   },
   methods: {
     deleteToDo (id) {
-      this.todos.splice(id, 1);
+      this.todos.splice(id, 1)
     },
     addToDo () {
       let vue = this

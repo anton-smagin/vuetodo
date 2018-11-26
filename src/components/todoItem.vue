@@ -18,7 +18,7 @@
   <div class="list-group-item" v-else>
     <div class="row">
     <span class="todo-text">
-      {{text}}
+      {{ text }}
     </span>
     <div class="btn-group btn-group-sm float-right" role="group">
       <button class="btn btn-warning todo-edit" v-on:click="editToDo()">edit</button>
@@ -26,7 +26,7 @@
     </div>
     </div>
     <div class="row">
-      <img :src="image" width=100 height=100>
+      <img :src="image" width="200" height="200">
     </div>
   </div>
 </div>
@@ -54,7 +54,7 @@ export default {
           { todo: { text: this.text } },
           { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         )
-        .then(function(response) {
+        .then(function(response){
           vue.text = response.data.text
           vue.editing = false
         })

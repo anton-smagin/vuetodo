@@ -1,8 +1,14 @@
 <template>
   <div>
-    <input placeholder="login" type="email" v-model="email">
-    <input placeholder="password" type="password" v-model="password">
-    <button class="btn" v-on:click="signup">Sign Up</button>
+    <div class="row">
+      <div class="col12 text-center">
+        <div class="input-group">
+          <input id="new-login" type="email" placeholder="Email" v-model="email">
+          <input id="new-password" type="password" placeholder="Password" v-model="password">
+          <button id="log-in" class="btn" v-on:click="signup">Sign Up</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -35,3 +41,7 @@
   }
 }
 </script>
+
+<style>
+
+</style>
