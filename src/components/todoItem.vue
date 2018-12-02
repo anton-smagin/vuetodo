@@ -26,7 +26,7 @@
     </div>
     </div>
     <div class="row">
-      <img :src="image" width="200" height="200">
+      <img :src="image" width="auto" height="200">
     </div>
   </div>
 </div>
@@ -49,11 +49,11 @@ export default {
     saveToDo () {
       let vue = this
       axios
-        .put(
-          this.todoPath(),
-          { todo: { text: this.text } },
-          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-        )
+        .put (
+           this.todoPath(),
+           { todo: { text: this.text } },
+           { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+          )
         .then(function(response){
           vue.text = response.data.text
           vue.editing = false

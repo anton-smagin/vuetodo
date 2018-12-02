@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="row">
-<<<<<<< HEAD
       <div v-if="loggedIn" class="login float-right">
         <logout/>
       </div>
@@ -18,18 +17,22 @@
           v-on:click="login = !login"
         >
           or {{ login ? "sign up" : "login" }}
-=======
+        </button>
        <div v-if="loggedIn" class="login float-right">
         <logout/>
         </div>
         <div v-else class="login float-right">
         <login v-if="login" />
         <signup v-else />
-        <button class="btn btn-warning" v-on:click="login = !login">or
-          {{ login ? "signup" : "login" }}
->>>>>>> add delete function, edit function, login, logout, signup
+        <button
+          id="btn-or"
+          class="btn btn-warning  "
+          v-on:click="login = !login"
+        >
+          or {{ login ? "sign up" : "login" }}
         </button>
       </div>
+    </div>
     </div>
     <div class="row">
       <div class="col12 text-center">
@@ -66,11 +69,7 @@ import logout from './logout.vue'
 
 export default {
   components: {
-<<<<<<< HEAD
-    todoItem: todoItem,
-=======
     todoItem,
->>>>>>> add delete function, edit function, login, logout, signup
     signup: signup,
     login: login,
     logout: logout
@@ -79,15 +78,9 @@ export default {
     return {
       todos: [],
       newTodo: '',
-<<<<<<< HEAD
       login: true,
-      loggedIn: localStorage.getItem('token')
+      loggedIn: localStorage.getItem('token'),
       image: ''
-=======
-      image: '',
-      login: true,
-      loggedIn: localStorage.getItem('token') !== null,
->>>>>>> add delete function, edit function, login, logout, signup
     }
   },
   methods: {
@@ -115,11 +108,11 @@ export default {
       axios
         .get('https://gttodo.herokuapp.com/api/todos',
         {
-          headers: {
+          headers:{
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         })
-        .then(function(response) {
+        .then (function(response){
           vue.todos = response.data
         })
     },

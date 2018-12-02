@@ -33,6 +33,7 @@
           .then(function(response) {
             localStorage.setItem('token', response.data.token)
             vue.$parent.loggedIn = true
+            vue.$parent.getTodos()
           })
           .catch(function(data) {
             /* eslint-disable */
