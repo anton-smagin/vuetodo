@@ -3,6 +3,7 @@
   <div v-if="editing" class="edit-todo list-group-item">
     <div class="input-group">
       <input id="edit-todo" class="col6" type="text" v-model="text">
+      <input id="new-image" type="text" placeholder="what's your img?" v-model="image">
       <div class="btn-group float-right">
         <button
           v-on:click="saveToDo()"
@@ -15,12 +16,17 @@
     </div>
   </div>
   <div class="list-group-item" v-else>
+    <div class="row">
     <span class="todo-text">
-      {{text}}
+      {{ text }}
     </span>
     <div class="btn-group btn-group-sm float-right" role="group">
       <button class="btn btn-warning todo-edit" v-on:click="editToDo()">edit</button>
       <button class="btn btn-danger todo-delete" v-on:click="deleteToDo()">delete</button>
+    </div>
+    </div>
+    <div class="row">
+      <img :src="image" width="auto" height="200">
     </div>
   </div>
 </div>
@@ -35,19 +41,20 @@ export default {
   return {
     editing: false,
     text: this.todo.text,
-    id: this.todo.id
+    id: this.todo.id,
+    image: this.todo.image,
   }
 },
   methods: {
     saveToDo () {
       let vue = this
       axios
-        .put(
-          this.todoPath(),
-          { todo: { text: this.text } },
-          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-        )
-        .then(function(response) {
+        .put (
+           this.todoPath(),
+           { todo: { text: this.text } },
+           { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+          )
+        .then(function(response){
           vue.text = response.data.text
           vue.editing = false
         })

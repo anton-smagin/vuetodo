@@ -11,19 +11,34 @@
     </div>
     <div v-if="!loggedIn" class="row">
       <div class="float-right">
-      <button
-        id="btn-or"
-        class="btn btn-warning"
-        v-on:click="login = !login"
-      >
-        or {{ login ? "sign up" : "login" }}
-      </button>
+        <button
+          id="btn-or"
+          class="btn btn-warning"
+          v-on:click="login = !login"
+        >
+          or {{ login ? "sign up" : "login" }}
+        </button>
+       <div v-if="loggedIn" class="login float-right">
+        <logout/>
+        </div>
+        <div v-else class="login float-right">
+        <login v-if="login" />
+        <signup v-else />
+        <button
+          id="btn-or"
+          class="btn btn-warning  "
+          v-on:click="login = !login"
+        >
+          or {{ login ? "sign up" : "login" }}
+        </button>
+      </div>
     </div>
     </div>
     <div class="row">
       <div class="col12 text-center">
         <div class="input-group">
           <input id="new-todo" type="text" placeholder="what your plan?" v-model="newTodo">
+          <input id="new-image" type="text" placeholder="what's your img?" v-model="image">
           <button id="add-todo" class="btn" v-on:click="addToDo">Add ToDo</button>
         </div>
       </div>
@@ -54,7 +69,7 @@ import logout from './logout.vue'
 
 export default {
   components: {
-    todoItem: todoItem,
+    todoItem,
     signup: signup,
     login: login,
     logout: logout
@@ -64,19 +79,20 @@ export default {
       todos: [],
       newTodo: '',
       login: true,
-      loggedIn: localStorage.getItem('token')
+      loggedIn: localStorage.getItem('token'),
+      image: ''
     }
   },
   methods: {
     deleteToDo (id) {
-      this.todos.splice(id, 1);
+      this.todos.splice(id, 1)
     },
     addToDo () {
       let vue = this
       axios
         .post(
           'https://gttodo.herokuapp.com/api/todos',
-          { todo: { text: this.newTodo } },
+          { todo: { text: this.newTodo, image: this.image } },
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -92,11 +108,11 @@ export default {
       axios
         .get('https://gttodo.herokuapp.com/api/todos',
         {
-          headers: {
+          headers:{
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         })
-        .then(function(response) {
+        .then (function(response){
           vue.todos = response.data
         })
     },
